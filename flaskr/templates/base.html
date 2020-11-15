@@ -1,0 +1,37 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - Books</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav class="account">
+  <ul>
+    {% if g.user %}
+      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+    {% else %}
+      <li><a href="{{ url_for('auth.register') }}">Register</a>
+      <li><a href="{{ url_for('auth.login') }}">Log In</a>
+    {% endif %}
+  </ul>
+  </div>
+</nav>
+
+<h1 class="header">Books.</h1>
+
+<nav class="menu">
+  <ul>
+    <li><a class="action" href="{{ url_for('blog.index') }}">All</a></li>
+    <li>Personal</li>
+    <li>Like</li>
+    <li>Favorites</li>
+  {% if g.user %}
+    <li><a class="action" href="{{ url_for('blog.create') }}">New</a></li>
+  {% endif %}
+  </ul>
+</nav>
+
+<section class="content">
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
+
+<a href="{{ url_for('blog.index') }}"><button id="fixedbutton">Home</button></a>
